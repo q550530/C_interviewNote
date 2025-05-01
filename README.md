@@ -303,6 +303,26 @@ Ans:17
 ```
 Note: 字串的最後一個是'\0' 也算
 
+*ask: output the value ??
+```
+ine main() {
+	char *str[ ][2] =
+		{ "professor", "Justin" ,
+		  "teacher", "Momor" ,
+		  "student", "Caterpillar"};
+
+	char str2[3][10] = {"professor", "Justin", "etc"};
+	printf("%s\n", str[1][1]);
+	printf("%c\n",str2[1][1]);
+}
+```
+```
+Ans:
+Momor
+u
+```
+Note: str 是一個*str[3][2]字串陣列 str[1][0]= teacher; str[0][1] = Justin , str2 是一個字元陣列
+
 
 -----------------------------
 **變數範圍和生命周期**
