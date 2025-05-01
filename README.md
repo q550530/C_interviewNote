@@ -489,6 +489,10 @@ int count_bit(int x){
 	return count;
 }
 ```
+* count_bit(456) + count_bit(123) + count_bit(789) = ?
+```
+Ans:4 + 6 + 5 = 16
+```
  
 ----------------------------- 
 **資料結構**
