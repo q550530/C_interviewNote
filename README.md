@@ -260,6 +260,7 @@ Ans:
 ```
 Note:先取直後取值的差異
 
+*ask: the value ??
 ```
 int main(){
 int ref[]={8,4,0,2};
@@ -276,9 +277,32 @@ Ans:
 8 8
 4 4
 0 2
-
 ```
 Note: index = 2（來自前面的迴圈）因為index=2時才會跳出迴圈
+
+*ask: the value ??
+```
+int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+int *p = &(a + 1)[3];
+printf("%d\n", *p);
+```
+```
+Ans:5
+```
+Note: (&a+1)跟&(a+1) 一個是指標位移整個array 一個是指標位移一格
+
+*what is final value of cnt
+```
+int cnt = 10;
+const char *pc = "welcome";
+while(*pc++)
+	cnt++;
+```
+```
+Ans:17
+```
+Note: 字串的最後一個是'\0' 也算
+
 
 -----------------------------
 **變數範圍和生命周期**
@@ -396,12 +420,54 @@ num_c = num_a & (~num_b);
 num_c = num_c | num_b;
 
 cout<<(num_c); // 00001313
- ```
+```
+```
+Ans:00001313
+```
+Note:
+a=0001 0001 0001 0001
+b=0000 0010 0000 0010
+
+b ~= 1111 1101 1111 1101
+c = a & (~b) 0001 0001 0001 0001
+c |= b 0001 0011 0001 0011 => 1313
+
+*set bit
+```
+a |= (1 << n)
+```
+*clear bit
+```
+a &= ~(1 << n)
+```
+*rever bit
+```
+a ^= (1 << n)
+```
+
 * mask method and bitwise opreator
- ```
+```
 a = a | 7    // 最右側 3 位設為 1，其餘不變。
 a = a & (~7) // 最右側 3 位設為 0，其餘不變。
 a = a ^ 7    // 最右側 3 位執行 NOT operator，其餘不變。
- ```
+```
+ * Power of 2
+```
+return ((n & (n - 1)) == 0)
+```
+Note: 2的倍數只會有1個1 所以-1時會除了原本的位子會變0其他都為1
+
+* 確認有幾個1
+```
+int count_bit(int x){
+
+	int count = 0;
+	while(x){
+		count++;
+		x= x & (x - 1);
+	}
+	return count;
+}
+```
  
 ----------------------------- 
