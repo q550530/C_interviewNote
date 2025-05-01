@@ -491,3 +491,93 @@ int count_bit(int x){
 ```
  
 ----------------------------- 
+**資料結構**
+
+sizeof(byte)
+
+sizeof(double)=8
+sizeof(float)=4
+sizeof(int)=4
+sizeof(short)=2 
+sizeof(char)=1
+sizeof(*ptr)=8
+
+* out put value
+```
+char *a[] = "Helloe word"
+
+printf("%d" ,sizeof(a));
+```
+```
+Ans:8
+```
+Note: 指標大小為8
+
+* out put value
+```
+union StateMachine {
+    char character;
+    int number;
+    char *str;
+};
+
+int main(void) {
+    union StateMachine machine;
+    machine.number = 1;
+
+    printf("sizeof: %lu\n", sizeof(machine));
+    printf("number: %d\n", machine.number);
+}
+```
+```
+Ans:
+8
+1
+```
+Note: union 只會框出型別中最大的記憶體位置
+
+* out put value
+```
+struct StateMachine {
+    char character;
+    int number;
+    char *str;
+};
+
+int main(void) {
+    struct StateMachine machine;
+    machine.number = 1;
+
+    printf("sizeof: %lu\n", sizeof(machine));
+    printf("number: %d\n", machine.number);
+}
+```
+```
+Ans:
+16
+1
+```
+Note: struct 有記憶體對齊 所以char 跟int排列順序會直接組成8 + pointer size 8
+
+* out put value
+```
+struct StateMachine {
+    int number;
+    char *str;
+	char character;
+};
+
+int main(void) {
+    struct StateMachine machine;
+    machine.number = 1;
+
+    printf("sizeof: %lu\n", sizeof(machine));
+    printf("number: %d\n", machine.number);
+}
+```
+```
+Ans:
+24
+1
+```
+Note: struct 有記憶體對齊 排列順序會不足的地方直接組成8 + pointer size 8 + char 8
