@@ -133,6 +133,50 @@ Ans:v1 = 10 ; v2 = 5
 ```
 
 Note:C語言只有call by value, 而所謂的call by address 是將記憶體位址傳入到funcion中，在function中變動完的記憶體位址中的值就可以撈到
+
+5. 指標常見問題
+   
+*The content of array a
+```
+int a[ ]={6,7,8,9,10};
+int *p= a;
+*(p++) +=123;
+*(++p) +=123;
+a=?
+```
+```
+Ans:{129, 7, 131, 9, 10}
+```
+Note:只要記住pointer在前是先取值在運算或位移, 在後就是先運算或位移再取值
+
+*ask: the value of *(a+1) and *(p-1)??
+```
+int a[5] = {1, 2, 3, 4, 5};
+int *p = (int*)(&a+1);
+
+```
+```
+Ans:*(p-1)=5 ; *(a+1)=2 
+```
+Note: (&a+1) 是指整個整個int array記憶體位子往後挪一位 
+a            &a+1
+ |1|2|3|4|5| |Unknow|Unknow|Unknow|Unknow|Unknow|
+
+*ask: the value of ques1 and ques2??
+```
+int a = 25;
+int b = 30;
+int ques1 = a++ + b++;
+int ques2 = ++a + ++b;
+printf("%d, %d", ques1, ques2);
+```
+```
+Ans:55 , 59 
+```
+Note:入上述pointer在前是先取值在運算或位移, 在後就是先運算或位移再取值
+
+
+
 -----------------------------
 **變數範圍和生命周期**
 
@@ -173,10 +217,59 @@ int main(){
 ```
 Ans:12345
 ```
+Note: 因為static在記憶體的位置只會做一次init
 
 global 變數 : 所有區段皆可使用此變數
 
+-----------------------------
+**巨集 #define**
+```
+#define PI 3.1415926    //常數巨集
+#define A(x) x    //函數巨集
+#define MIN(A，B)  ( (A)  <= (B) ? (A) : (B))
+```
+#常見問題
 
+括號
+```
+#define SUM(a,b)  a+b
+SUM(2,5)*10;
+
+
+#define MUX(a, b) a*b
+MUX(10+5, 10-5) = ?
+
+```
+```
+Ans:52 55
+```
+Note: Macro 中沒有括號故展開後為 2+5*10 先乘除後加減，得輸出為 52
+
+```
+#define INC(x) x*=2; x+=1
+
+int main()
+{                       
+    int i, j;
+    for (i = 0, j = 1; i < 5; i++)
+        INC(j);
+    printf("j = %d\n", j);
+}
+```
+```
+Ans:33
+
+///展開後為
+int main()
+{                       
+    int i, j;
+    for (i = 0, j = 1; i < 5; i++)
+        j*=2;
+    j+=1;
+    printf("j = %d\n", j);
+}
+```
+Note: Macro 中沒有括號，故展開後如上第1次：j = 2 ;第2次：j = 4;第3次：j = 8;第4次：j = 16;第5次：j = 32
 
  ---------------------------- 
 **bitwise operator**  
