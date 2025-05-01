@@ -69,59 +69,113 @@ int const * const foo; // 一個 const pointer，指向 const int 變數。
 C 理論實際上只有call by address, 但民間為了教學方便所以有了call by address 一說
 
 #swap
+
 call by value
 ```
 void swap(int a, int b){
-  int tmp = a;
-  a = b;
-  b = tmp;
+    int tmp = a;
+    a = b;
+    b = tmp;
 }
 
 int main(){
-  int v1 = 5;
-  int v2 = 10;
-
-  swap(v1, v2);
-  printf("v1 = %d ; v2 = %d", v1, v2); /// v1 = 5 ; v2 = 10
+    int v1 = 5;
+    int v2 = 10;
+    
+    swap(v1, v2);
+    printf("v1 = %d ; v2 = %d", v1, v2); /// v1 = 5 ; v2 = 10
 }   
+```
+```
+Ans:v1 = 5 ; v2 = 10
 ```
 Note:因為在傳值後 swap function做完後memory會直接被釋放，而傳入的值v1, v2的記憶體為值中的值沒有被變動
 
 call by reference
 ```
 void swap(int &a, int &b){
-  int tmp = a;
-  a = b;
-  b = tmp;
+    int tmp = a;
+    a = b;
+    b = tmp;
 }
 
 int main(){
-  int v1 = 5;
-  int v2 = 10;
-
-  swap(v1, v2);
-  printf("v1 = %d ; v2 = %d", v1, v2); /// v1 = 10 ; v2 = 5
+    int v1 = 5;
+    int v2 = 10;
+    
+    swap(v1, v2);
+    printf("v1 = %d ; v2 = %d", v1, v2); 
 }   
+```
+```
+Ans:v1 = 10 ; v2 = 5
 ```
 Note:call by reference 是只有C++才有的
 
 call by address
 ```
 void swap(int *a, int *b){
-  int tmp = *a;
-  *a = *b;
-  *b = tmp;
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
 }
 
 int main(){
-  int v1 = 5;
-  int v2 = 10;
-
-  swap(&v1, &v2);
-  printf("v1 = %d ; v2 = %d", v1, v2); /// v1 = 10 ; v2 = 5
+    int v1 = 5;
+    int v2 = 10;
+    
+    swap(&v1, &v2);
+    printf("v1 = %d ; v2 = %d", v1, v2); 
 }   
 ```
+```
+Ans:v1 = 10 ; v2 = 5
+```
+
 Note:C語言只有call by value, 而所謂的call by address 是將記憶體位址傳入到funcion中，在function中變動完的記憶體位址中的值就可以撈到
+-----------------------------
+**變數範圍和生命周期**
+
+local 變數 : local 變數僅活在該函式內，存放位置在 stack 記憶體中。
+```
+void func(void){
+    int i = 0 ;
+    i++ ;
+    printf("%d" , i ) ;
+}
+
+int main(){
+    for(int i = 0; i < 5; i++){
+        func();
+    }
+}
+
+```
+```
+Ans:11111
+```
+
+static 變數 : static 變數生命周期(life time)跟程式一樣長，而範圍(scope)則維持不變，即在宣告的函式之外仍無法存取 static 變數。
+```
+void func(void){
+    static int i = 0 ;
+    i++ ;
+    printf("%d" , i ) ;
+}
+
+int main(){
+    for(int i = 0; i < 5; i++){
+        func();
+    }
+}
+
+```
+```
+Ans:12345
+```
+
+global 變數 : 所有區段皆可使用此變數
+
 
 
  ---------------------------- 
