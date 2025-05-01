@@ -175,7 +175,110 @@ Ans:55 , 59
 ```
 Note:入上述pointer在前是先取值在運算或位移, 在後就是先運算或位移再取值
 
+*ask: the value ??
+```
+int main(){
+	int arr[] = {10,20,30,40,50};
+	int *ptr1 = arr;
+	int *ptr2 = arr + 5;
+	printf("%d", (ptr2-ptr1));
+	printf("%d", (char*)ptr2 - (char*)ptr1);
+}
+```
+```
+Ans:5 20
+```
+Note: ptr1 指向 arr[0] ptr2 指向 arr[5] 已經超出arr有值的範圍
+ptr2 - ptr1 → 「ptr2 比 ptr1 多移動了幾個 int？」所以是 5
+(char*)ptr2 - (char*)ptr1 → 差了幾個 byte（結果是 20，因為一個 int 是 4 bytes）
 
+*ask: the value ??
+```
+int main(){
+	int arr1[] = {10,20};
+	int arr2[] = {10,20};
+	int arr3[] = {10,20};
+	int *p = arr1;
+	int *q = arr2;
+	int *r = arr3;
+	++*p;
+	*q++;
+	*++r;
+	printf("%d %d %d\n", arr1[0], arr1[1], *p);
+	printf("%d %d %d\n", arr2[0], arr2[1], *q);
+	printf("%d %d %d\n", arr3[0], arr3[1], *r);
+}
+```
+```
+Ans:
+11 20 11
+10 20 10
+10 20 20
+```
+Note:如上述pointer在前是先取值在運算或位移, 在後就是先運算或位移再取值
+++*p or ++(*p) 是直接取p值做運算而非位移
+
+*ask: the value ??
+```
+void f(int *p, int *q){
+	p = q;
+	*p = 2;
+}
+
+int i=0, j=1;
+int main(){
+	f(&i, &j);
+	printf("%d %d\n", i, j);
+}
+```
+```
+Ans:0 2
+```
+Note:function f中的p 指向位置改成的q
+
+*ask: the value ??
+```
+int main(){
+	char s[ ]="0113256";
+	char *p = s;
+	
+	printf("%c", *p++);
+	printf("%c", *(p++));
+	printf("%c", (*p)++);
+	printf("%c", *++p);
+	printf("%c", *(++p));
+	printf("%c", ++*p);
+	printf("%c", ++(*p));
+	printf("\n");
+	printf("%s",s);
+}
+```
+```
+Ans:
+0113234
+0123456
+```
+Note:先取直後取值的差異
+
+```
+int main(){
+int ref[]={8,4,0,2};
+int *ptr;
+int index;
+for(index=0, ptr=ref; index<2; index++,ptr++)
+     printf("%d %d\n", ref[index], *ptr);
+(*ptr++);
+printf("%d %d\n", ref[index], *ptr);
+}
+```
+```
+Ans:
+8 8
+4 4
+0 2
+
+```
+Note: index = 2（來自前面的迴圈）因為index=2時才會跳出迴圈
 
 -----------------------------
 **變數範圍和生命周期**
