@@ -678,10 +678,20 @@ int strcmp(char *str1, char *str2){
 }
 ```
 
-*String revet 
+*String 反轉
 ```
+void strRev(char* str){
+	int len = strlen(str);
+	char tmp = '\0';
+	for(int i = 0; i < len/2; i++ ){
+		tmp=str[i];
+		str[i] = str[len - i - 1];
+		str[len - i - 1] = tmp;
+	}
+}
+```
+Note: char 是字元 char*是字元指標有可能為字串
 
-```
 *Linklist
 find node in a range
 
