@@ -508,12 +508,13 @@ sizeof(*ptr)=8
 
 * out put value
 ```
-char *a[] = "Helloe word"
-
-printf("%d" ,sizeof(a));
+char i[ ] = “Hello”;
+char *p = 1;
+int n = 10;
+printf(“%d %d %d”, sizeof(i), sizeof(p), 		sizeof(n));
 ```
 ```
-Ans:8
+Ans:8 1 4
 ```
 Note: 指標大小為8
 
@@ -585,3 +586,115 @@ Ans:
 1
 ```
 Note: struct 有記憶體對齊 排列順序會不足的地方直接組成8 + pointer size 8 + char 8
+
+--------------------------------------------
+**實做**
+
+*strcpy
+Set by array
+```
+void strcpy(char * dst, char * src){
+	int i = 0;
+	while( src[i] != '\0'){
+		dst[i] = src[i];
+		i++;
+	}
+}
+```
+Set by pointer
+```
+void strcpy(char * dst, char * src){
+	int i = 0;
+	while( *src != '\0'){
+		*dst = *src;
+		src++;
+		dst++;
+	}
+}
+```
+*strlen
+Set by array
+```
+int strlen(char * str){
+	int i = 0;
+	while( str[i] != '\0'){
+		i++;
+	}
+	return i;
+}
+```
+Set by pointer
+```
+int strlen(char * str){
+	int i = 0;
+	while( *str != '\0'){
+		src++;
+		i++;
+	}
+	return i;
+}
+```
+*memcpy
+```
+void memcpy(void *dst, void *src, int memlen){
+
+	char *d = (char *) dst;
+	char *s = (char *) src;
+
+	if ((dst == NULL) || (src == NULL)){
+		printf("Pointer is NULL");
+		exit(1);
+	}
+	for(int i = 0; i < memlen; i++){
+		*d = *s;
+	}
+
+}
+```
+Note: 使用 char* 是因為 char 是最小記憶體單位（1 byte），用來逐 byte 複製
+
+*String compare
+```
+int strcmp(char *str1, char *str2){
+
+	if ((*str1 == '\0') || (*str2 == '\0')){
+		printf("str is empty");
+		return 0;
+	}
+	while( (*str1 != '\0') && (*str2 != '\0') ){
+		if((*str1) != (*str2)){
+			return 0;
+		} else {
+			str1++;
+			str2++;
+		}
+	}
+	// 須確保字串最後的結尾字也相符 否則str1=abc str2= abcd 會在檢查完c後因str1沒了就跳出
+	if (*str1 == '\0' && *str2 == '\0') {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+```
+
+*String revet 
+```
+
+```
+*Linklist
+find node in a range
+
+find node
+
+insert node
+
+del node
+
+
+-------------------------------------------------------------
+**參考**
+https://paicc.github.io/2018/09/29/%E9%9D%A2%E8%A9%A6%E8%80%83%E9%A1%8C-C%E8%AA%9E%E8%A8%80/
+https://medium.com/@earth875/c-c-%E5%B8%B8%E8%A6%8B%E8%A9%A6%E9%A1%8C-961619b14f88
+https://hackmd.io/@DirtyDIrty/ry2v2i2Ui#Linked-list
+https://hackmd.io/IMACcx1lRdSqjw_QdQJXiA#1-Function-Pointer
