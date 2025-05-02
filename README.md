@@ -693,17 +693,98 @@ void strRev(char* str){
 Note: char 是字元 char*是字元指標有可能為字串
 
 *Linklist
-find node in a range
+find value node in a range
+```
+int findNode(struct Node *head, int range, int value){
+
+	if(head->data == value){
+		return 0;
+	}
+	
+	struct Node *tmpN = head;
+	for(int i = 0; i < range; i++){
+		if(tmpN->data == value){
+			return (i);
+		}else{
+			tmpN=tmpN->next;
+		}		
+	}
+	return -1;
+}
+
+```
 
 find node
+```
+int findNode(struct Node *head, int range, int value){
 
+	if(head->data == value){
+		return 0;
+	}
+	
+	struct Node *tmpN = head;
+	int idx = 0;
+	while(tmpN->next != NULL){
+		if(tmpN->data == value)
+			return idx;
+		else{
+			idx++;
+			tmpN=tmpN->next;
+		}
+	}
+	return -1;
+}
+
+```
 insert node
+```
+void insertNode(struct Node** head, int insertidx, struct Node* insertNode){
+
+	struct Node *current = *head;
+	struct Node *perv = NULL;
+	if(insertidx == 0){
+		insertNode->next = head;
+		*head = insertNode;
+	}
+
+	for(int i = 0; i < insertidx; i++ ){
+		perv = current;
+		current = current->next;
+	}
+	perv->next=insertNode;
+	insertNode->next=current;
+
+}
+```
+Note:因要改變頭部指標，head 是 struct Node** head，這樣才能影響外部變數
 
 del node
+```
+void delNode(struct Node** head, struct Node* delNode){
+
+	struct Node *current = *head;
+	struct Node *perv = NULL;
+
+	if(*(head)->data == delNode->data){
+		*head=*head->next;
+	}
+	
+	while(current->next != NULL){
+		if(current->data == delNode->data){
+			perv->next=current->next;
+            return;
+		}else{
+			perv=current;
+			current=current->next;
+		}
+	}
+}
+```
 
 
 -------------------------------------------------------------
 **參考**
+
 https://paicc.github.io/2018/09/29/%E9%9D%A2%E8%A9%A6%E8%80%83%E9%A1%8C-C%E8%AA%9E%E8%A8%80/
 https://medium.com/@earth875/c-c-%E5%B8%B8%E8%A6%8B%E8%A9%A6%E9%A1%8C-961619b14f88
 https://hackmd.io/@DirtyDIrty/ry2v2i2Ui#Linked-list
