@@ -509,7 +509,7 @@ sizeof(*ptr)=8
 * out put value
 ```
 char *i[ ] = “Hello”;
-char *p = 1;
+char p = 1;
 int n = 10;
 printf(“%d %d %d”, sizeof(i), sizeof(p), 		sizeof(n));
 ```
