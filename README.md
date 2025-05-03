@@ -508,13 +508,15 @@ sizeof(*ptr)=8
 
 * out put value
 ```
-char *i[ ] = “Hello”;
+char *i[ ] = {"Hello"};
 char p = 1;
+char a[ ]="Hello"
+char *pp = 1;
 int n = 10;
-printf(“%d %d %d”, sizeof(i), sizeof(p), 		sizeof(n));
+printf(“%d %d %d %d %d”, sizeof(i), sizeof(p),sizeof(n),sizeof(a),sizeof(pp));
 ```
 ```
-Ans:8 1 4
+Ans:8 1 4 6 8
 ```
 Note: 指標大小為8
 
