@@ -500,10 +500,15 @@ Ans:4 + 6 + 5 = 16
 sizeof(byte)
 
 sizeof(double)=8
+
 sizeof(float)=4
+
 sizeof(int)=4
+
 sizeof(short)=2 
+
 sizeof(char)=1
+
 sizeof(*ptr)=8
 
 * out put value
@@ -593,6 +598,7 @@ Note: struct 有記憶體對齊 排列順序會不足的地方直接組成8 + po
 **實做**
 
 *strcpy
+
 Set by array
 ```
 void strcpy(char * dst, char * src){
@@ -615,6 +621,7 @@ void strcpy(char * dst, char * src){
 }
 ```
 *strlen
+
 Set by array
 ```
 int strlen(char * str){
@@ -637,6 +644,24 @@ int strlen(char * str){
 }
 ```
 *memcpy
+Set by array
+```
+void memcpy(void *dst, void *src, int memlen){
+
+	char *d = (char *) dst;
+	char *s = (char *) src;
+
+	if ((dst == NULL) || (src == NULL)){
+		printf("Pointer is NULL");
+		exit(1);
+	}
+	for(int i = 0; i < memlen; i++){
+		d[i] = s[i];
+	}
+
+}
+```
+Set by Pointer
 ```
 void memcpy(void *dst, void *src, int memlen){
 
@@ -649,6 +674,9 @@ void memcpy(void *dst, void *src, int memlen){
 	}
 	for(int i = 0; i < memlen; i++){
 		*d = *s;
+		d++;
+		s++;
+		// *d++ = *s++; //也可以
 	}
 
 }
