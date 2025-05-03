@@ -569,7 +569,7 @@ Ans:
 16
 1
 ```
-Note: struct 有記憶體對齊 所以char 跟int排列順序會直接組成8 + pointer size 8
+Note: struct 有記憶體對齊 結構對齊主要是根據結構內最大成員大小來做對齊 所以char 跟int排列順序會直接組成8 + pointer size 8
 
 * out put value
 ```
